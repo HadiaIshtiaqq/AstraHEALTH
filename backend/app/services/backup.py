@@ -4,6 +4,8 @@ Skipped (and reported) when free disk space is low, so a backup can never fill t
 """
 from __future__ import annotations
 
+import os
+
 import shutil
 from contextlib import closing
 import sqlite3
@@ -60,6 +62,8 @@ def restore_to(backup_name: str, target: Path) -> Path:
 
 
 def daily_backup() -> dict:
+    if os.environ.get("BACKUPS_ENABLED", "true").lower() in ("0", "false", "no", "off"):
+        return {"ok": True, "reason": "backups disabled (hosted demo)"}
     today = datetime.now(timezone.utc).strftime("%Y%m%d")
     if any(b["file"].startswith(f"astrahealth-{today}") for b in list_backups()):
         return {"ok": True, "reason": "already backed up today"}

@@ -3,7 +3,7 @@ backend/data/
 __pycache__/
 *.pyc
 frontend/node_modules/
-frontend/dist/
+playwright-report/
 frontend/test-results/
 *.tsbuildinfo
 knowledge/index/
@@ -11,3 +11,6 @@ knowledge/index/
 *.db
 *.db-wal
 *.db-shm
+INITIAL_SECRETS.txt
+credentials.json
+backups/

@@ -96,6 +96,27 @@ def _write(path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
+_ENV_SECRETS = (("medical_officer_pin", "MEDICAL_OFFICER_PIN"), ("admin_pin", "ADMIN_PIN"), ("device_token", "DEVICE_TOKEN"))
+
+
+def _apply_env_overrides(data: dict) -> bool:
+    """On a hosted deployment the PINs come from the platform's secret settings, not from a file."""
+    changed = False
+    for kind, env in _ENV_SECRETS:
+        value = os.environ.get(env)
+        if not value:
+            continue
+        entry = data["device_token"] if kind == "device_token" else data["pins"].get(kind)
+        if entry and _hash_pin(value, bytes.fromhex(entry["salt"]))["hash"] == entry["hash"]:
+            continue
+        if kind == "device_token":
+            data["device_token"] = _hash_pin(value)
+        else:
+            data["pins"][kind] = _hash_pin(value)
+        changed = True
+    return changed
+
+
 def load_credentials() -> dict:
     global _cache
     with _lock:
@@ -105,6 +126,8 @@ def load_credentials() -> dict:
         path.parent.mkdir(parents=True, exist_ok=True)
         data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
         if data.get("version") == 3:
+            if _apply_env_overrides(data):
+                _write(path, data)
             _cache = data
             return _cache
         plain: dict[str, str] = {}

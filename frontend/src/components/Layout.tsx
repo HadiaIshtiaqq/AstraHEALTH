@@ -35,6 +35,8 @@ function Brand() {
 }
 
 function Sidebar() {
+  const { health } = useApp();
+  const hosted = health?.mode === "hosted_demo";
   return (
     <aside className="space-bg sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-8 overflow-hidden p-5 text-white lg:flex">
       <Starfield density={0.0005} />
@@ -49,8 +51,9 @@ function Sidebar() {
         ))}
       </nav>
       <div className="relative z-10 mt-auto rounded-2xl bg-white/7 p-4 backdrop-blur-sm text-xs leading-relaxed text-white/75 ring-1 ring-white/10">
-        <div className="mb-1 flex items-center gap-1.5 font-semibold text-white"><Lock size={13} aria-hidden /> Your data stays here</div>
-        All analysis runs on this device. Prototype only — not a medical device.
+        <div className="mb-1 flex items-center gap-1.5 font-semibold text-white"><Lock size={13} aria-hidden /> {hosted ? "Public demo" : "Your data stays here"}</div>
+        {hosted ? "Online demo with synthetic crew only. The mission version runs fully offline with a local AI model. Do not enter real health data."
+          : "All analysis runs on this device."} Prototype only — not a medical device.
       </div>
     </aside>
   );
@@ -100,7 +103,7 @@ function TopBar() {
         )}
         <span className={`chip ${healthError ? "bg-urgent-soft text-urgent" : "bg-mint-soft text-teal-ink"}`}
           title={healthError || `${health?.offline.blocked_attempts ?? 0} external connection attempts blocked`}>
-          <WifiOff size={13} aria-hidden /> {healthError ? "LOCAL SERVICE UNREACHABLE" : "LOCAL · OFFLINE"}
+          <WifiOff size={13} aria-hidden /> {healthError ? "SERVICE UNREACHABLE" : health?.mode === "hosted_demo" ? "HOSTED DEMO" : "LOCAL · OFFLINE"}
         </span>
         {profile?.is_synthetic && <SyntheticChip />}
         <div className="ml-auto flex items-center gap-3 text-sm text-muted">

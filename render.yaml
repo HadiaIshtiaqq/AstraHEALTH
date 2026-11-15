@@ -1,0 +1,15 @@
+# Render Blueprint: New > Blueprint > pick this repository.
+services:
+  - type: web
+    name: astrahealth-ai
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/system/health
+    autoDeploy: true
+    envVars:
+      # You are asked for these when the Blueprint is created. Use 6-digit numbers and share them only with judges.
+      - key: ADMIN_PIN
+        sync: false
+      - key: MEDICAL_OFFICER_PIN
+        sync: false

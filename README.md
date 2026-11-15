@@ -119,3 +119,13 @@ footer, for reviewers.
 - **Accessibility:** the automated WCAG 2.2 A/AA audit (axe-core) passes on every crew screen. A manual
   screen-reader pass is still recommended.
 - **Offline rehearsal:** a physical Wi-Fi-off rehearsal on the presentation laptop is still needed.
+
+## Hosted demo (Render)
+`render.yaml` + `Dockerfile` deploy a **public demo** on Render's free plan:
+- **Synthetic crew only;** it shows a "HOSTED DEMO" label. Do not enter real health data.
+- **No local AI model:** the free plan has 512 MB RAM, so explanations use the deterministic template.
+  The local model runs on the mission laptop.
+- **Demo data is seeded when the image is built,** so a cold start takes seconds. Data resets on every restart.
+- **PINs come from Render's secret settings** (`ADMIN_PIN`, `MEDICAL_OFFICER_PIN`). No plain-text secrets are in the image.
+
+Deploy: Render dashboard → **New → Blueprint** → select this repository → enter the two PINs → **Apply**.
