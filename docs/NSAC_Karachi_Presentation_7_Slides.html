@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASTRAHEALTH AI — NASA Space Apps Challenge Karachi Pitch Deck</title>
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --card-bg: rgba(18, 26, 47, 0.85);
+      --card-border: rgba(56, 189, 248, 0.25);
+      --accent-cyan: #38bdf8;
+      --accent-blue: #2563eb;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    /* Ambient Space Glow */
+    .stars-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.9) 0%, #070b14 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Presentation Header & Status Bar */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(10, 16, 30, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 50;
+    }
+
+    .badge-nasa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #38bdf8;
+      padding: 4px 12px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 9999px;
+    }
+
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-variant-numeric: tabular-nums;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .timer-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timer-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .timer-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .timer-btn:hover { color: #fff; }
+
+    /* Deck Layout */
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .slide {
+      position: absolute;
+      width: 90vw;
+      max-width: 1360px;
+      height: 80vh;
+      max-height: 800px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.05);
+      backdrop-filter: blur(20px);
+      animation: fadeIn 0.35s ease-out;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.985) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Slide Typography */
+    .slide-tag {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-title {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 24px;
+    }
+
+    .slide-title span {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      gap: 32px;
+      overflow-y: auto;
+    }
+
+    .col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cards & Callouts */
+    .feature-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .metric-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      letter-spacing: -1px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .highlight-pill {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .criteria-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+      margin-top: 16px;
+    }
+
+    .speaker-cue {
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cue-time {
+      color: var(--accent-amber);
+      font-weight: 700;
+    }
+
+    /* Controls Bar */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(10, 16, 30, 0.7);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 50;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-primary {
+      background: #0284c7;
+      border-color: #38bdf8;
+    }
+    .btn-primary:hover {
+      background: #0369a1;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      width: 28px;
+      border-radius: 10px;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    /* Speaker Notes Drawer */
+    #notesDrawer {
+      position: fixed;
+      right: 0;
+      top: 60px;
+      bottom: 60px;
+      width: 380px;
+      background: rgba(15, 23, 42, 0.95);
+      border-left: 1px solid rgba(56, 189, 248, 0.2);
+      backdrop-filter: blur(20px);
+      padding: 24px;
+      display: none;
+      flex-direction: column;
+      z-index: 40;
+      overflow-y: auto;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    #notesDrawer.open {
+      display: flex;
+    }
+
+    .notes-header {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notes-content {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .notes-content strong {
+      color: #fff;
+    }
+
+    .notes-content p {
+      margin-bottom: 14px;
+    }
+
+    @media print {
+      body { overflow: visible; height: auto; }
+      header, footer, #notesDrawer { display: none !important; }
+      .deck-container { display: block; height: auto; }
+      .slide { position: relative; display: flex !important; width: 100%; height: 100vh; page-break-after: always; box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars-bg"></div>
+
+  <!-- Header -->
+  <header>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <div class="badge-nasa">★ NASA SPACE APPS 2026 · KARACHI</div>
+      <div style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">ASTRAHEALTH AI</div>
+    </div>
+
+    <div class="timer-container">
+      <span class="timer-label">Judge Timer</span>
+      <span class="timer-val" id="timerDisplay">07:00</span>
+      <button class="timer-btn" id="timerToggle" title="Start/Pause Timer">▶</button>
+      <button class="timer-btn" id="timerReset" title="Reset to 7m">↺</button>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="btn" id="btnNotes">Speaker Script (S)</button>
+      <button class="btn" id="btnFullscreen">Fullscreen (F)</button>
+    </div>
+  </header>
+
+  <!-- Presentation Slides -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide active" id="slide-1">
+      <div>
+        <div class="slide-tag">NASA Space Apps Challenge 2026 · Karachi Local Presentation</div>
+        <h1 class="slide-title">ASTRAHEALTH AI<br><span>Autonomous Astronaut Health Intelligence</span></h1>
+      </div>
+
+      <div class="slide-body">
+        <div class="col" style="justify-content: center;">
+          <div class="feature-card" style="border-left: 4px solid var(--accent-cyan); padding: 24px;">
+            <p style="font-size: 20px; font-weight: 600; line-height: 1.4; color: #f8fafc; margin-bottom: 12px;">
+              "In deep space, Earth is 22 light-minutes away.<br>When an astronaut falls ill, they cannot wait for Houston."
+            </p>
+            <p style="font-size: 14px; color: var(--text-muted);">
+              A 100% offline, privacy-first, local intelligence system powering crew clinical autonomy on deep-space exploration missions.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 8px;">
+            <span class="criteria-tag">CRITERIA: IMPACT & RELEVANCE</span>
+            <span class="highlight-pill">Mission: ARES-01 Mars Transit</span>
+            <span class="highlight-pill">Zero Cloud Dependency</span>
+          </div>
+        </div>
+
+        <div class="col" style="justify-content: center;">
+          <div class="feature-card">
+            <div class="card-title">🚀 Team Information</div>
+            <div style="font-size: 14px; line-height: 1.8; color: #cbd5e1;">
+              <div><strong>Team Name:</strong> AstraHealth Karachi Team</div>
+              <div><strong>Members:</strong> Lead System Architect, ML Engineer, Full-Stack & UX Lead</div>
+              <div><strong>Presentation Slot:</strong> 7 Minutes Pitch + 3 Minutes Q&A</div>
+              <div><strong>Platform Target:</strong> NASA Space Apps 2026 · Deep Space Health</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [0:00 – 0:50]</span> Hook the judges immediately with the 22-minute light-speed barrier to Mars.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 1 / 7</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Problem & Challenge -->
+    <section class="slide" id="slide-2">
+      <div>
+        <div class="slide-tag">The Challenge & Operational Reality</div>
+        <h2 class="slide-title">The Deep Space <span>Health Dilemma</span></h2>
+      </div>
+
+      <div class="slide-body">
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">📡 1. The 22-Minute Communication Lag</div>
+            <p class="card-desc">
+              On a transit to Mars, two-way radio signals take up to <strong>44 minutes</strong> round-trip. Telemedicine from Flight Surgeons on Earth is physically impossible during medical anomalies.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">🌌 2. NASA's 5 Spaceflight Hazards</div>
+            <p class="card-desc">
+              Astronauts experience <strong>Space Radiation</strong>, <strong>Isolation & Confinement</strong>, <strong>Extreme Distance</strong>, <strong>Altered Gravity</strong> (bone/muscle loss), and <strong>Hostile Closed Environments</strong> simultaneously.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">⚠️ 3. The Fatal Flaw of Modern AI</div>
+            <p class="card-desc">
+              Current commercial AI relies on constant cloud connectivity and hallucinates answers. <em>Giving an astronaut a chatbot that guesses medical diagnoses in zero-g is a mission-fatal risk.</em>
+            </p>
+          </div>
+
+          <div class="feature-card" style="background: rgba(37, 99, 235, 0.15); border-color: rgba(56, 189, 248, 0.4);">
+            <div class="card-title" style="color: #38bdf8;">🎯 What the Crew Actually Needs</div>
+            <ul style="font-size: 14px; color: #cbd5e1; padding-left: 20px; line-height: 1.7;">
+              <li><strong>Personalized baselines:</strong> Knows what is normal for <em>this specific astronaut</em>, not Earth averages.</li>
+              <li><strong>Deterministic safety:</strong> Clinical severity governed by immutable rules, not probabilistic LLMs.</li>
+              <li><strong>Actionable care:</strong> Tells them exactly <em>what to do next</em> to recover before irreversible damage occurs.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [0:50 – 1:50]</span> Contrast deep space reality vs earthly telemedicine. Explain why cloud chatbots fail.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 2 / 7</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Architecture -->
+    <section class="slide" id="slide-3">
+      <div>
+        <div class="slide-tag">Our Solution & Technical Innovation</div>
+        <h2 class="slide-title">Modular Architecture: <span>Safety Before AI</span></h2>
+      </div>
+
+      <div class="slide-body">
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">🛡️ 1. InputSense & DataGuard</div>
+            <p class="card-desc">
+              Ingests raw telemetry and natural conversational check-ins. Detects negations (e.g. <em>"no chest pain"</em>) and flags implausible or stale sensor values before analysis.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">🧠 2. Dynamic BaselineIQ</div>
+            <p class="card-desc">
+              Builds a rolling individual baseline. Crucially excludes the last 3 days from the reference window so an emerging pathology never dilutes its own baseline.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">🔬 3. 10 Specialist Agents in Parallel</div>
+            <p class="card-desc">
+              CardioGuard, NeuroMind, SleepSense, BoneGuard, NutriTrack, and MissionContext analyze domain anomalies without cross-contaminating assumptions.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature-card" style="border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.08);">
+            <div class="card-title" style="color: #34d399;">⚖️ 4. Deterministic Safety & Evidence Gate</div>
+            <p class="card-desc">
+              <strong>The Golden Rule:</strong> AI never decides triage. Versioned clinical rules assign severity: <code>NORMAL</code>, <code>MONITOR</code>, <code>REVIEW</code>, <code>URGENT</code>. Real agent disagreements are escalated, never averaged.
+            </p>
+          </div>
+
+          <div class="feature-card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.08);">
+            <div class="card-title" style="color: #38bdf8;">🤖 5. Grounded Local LLM Explanations</div>
+            <p class="card-desc">
+              A local offline model (Qwen 2.5 3B) synthesizes clear, empathetic explanations. Every sentence is cross-checked against finding facts by a guard that strips ungrounded or speculative claims.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [1:50 – 2:50]</span> Highlight the "Safety Before AI" principle: rules decide severity; LLMs only explain.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 3 / 7</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: NASA Data & Evidence -->
+    <section class="slide" id="slide-4">
+      <div>
+        <div class="slide-tag">NASA Standards & Scientific Grounding</div>
+        <h2 class="slide-title">Built on <span>NASA & Space Agency Data</span></h2>
+      </div>
+
+      <div class="slide-body">
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">📖 NASA Human Research Roadmap (HRR)</div>
+            <p class="card-desc">
+              Integrated clinical evidence for <strong>SANS</strong> (Spaceflight-Associated Neuro-ocular Syndrome), microgravity cardiovascular deconditioning, and sleep fragmentation.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">📜 NASA-STD-3001 Vol. 1 & 2</div>
+            <p class="card-desc">
+              Implements official <em>Space Flight Human-System Standards</em> for crew health maintenance, daily nutritional intake limits, exercise countermeasure guidelines, and circadian scheduling.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">🛰️ Radiation Dosimetry & Mission Hazards</div>
+            <p class="card-desc">
+              Integrates active space radiation dosimeter thresholds and solar particle event (SPE) safety protocols based on NASA Human Research Program hazard indices.
+            </p>
+          </div>
+
+          <div class="feature-card" style="background: rgba(15, 23, 42, 0.85); border-left: 4px solid var(--accent-cyan);">
+            <div class="card-title">🔍 Offline Evidence Index (KB-001 — KB-010)</div>
+            <p class="card-desc">
+              The flight system embeds an on-device BM25 & TF-IDF search engine indexing verified NASA documents. <strong>Every finding displays exact citation passages with transparent certainty metrics.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [2:50 – 3:45]</span> Point directly to NASA-STD-3001 and HRP documents embedded in our offline engine.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 4 / 7</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: User Experience & Demo -->
+    <section class="slide" id="slide-5">
+      <div>
+        <div class="slide-tag">Astronaut User Experience & Workflow</div>
+        <h2 class="slide-title">The Crew Experience: <span>Detect, Understand, Act</span></h2>
+      </div>
+
+      <div class="slide-body">
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">💬 1. Natural Voice / Text Check-in</div>
+            <p class="card-desc">
+              Astronaut types: <em>"Felt tired and short on sleep, mild headache, no chest pain."</em> System extracts sleep (5.2h), detects negation, flags fatigue without panic, and logs symptoms.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">📈 2. Multi-Signal Drift Detection</div>
+            <p class="card-desc">
+              Detects gradual multi-day changes (elevated resting HR + decreased sleep duration + exercise deficit) that isolated thresholds miss entirely.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">🎯 3. Actionable Care Plan</div>
+            <p class="card-desc">
+              Instead of scary medical jargon, provides 5 targeted recovery steps tied to their personal baseline (e.g. <em>"Target 7.2h sleep for 3 nights; schedule 30m protected wind-down"</em>).
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">🧍 4. Interactive Digital Twin & Routine</div>
+            <p class="card-desc">
+              Visualizes 2D and 3D physiological stress zones across organ systems and lets the astronaut schedule countermeasures directly into their mission timeline.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [3:45 – 4:50]</span> Walk through the astronaut journey. Show how it empowers self-care rather than causing alarm.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 5 / 7</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Verification & Benchmarks -->
+    <section class="slide" id="slide-6">
+      <div>
+        <div class="slide-tag">Engineering Rigor & Verification</div>
+        <h2 class="slide-title">Validated, Secure & <span>Proven Offline</span></h2>
+      </div>
+
+      <div class="slide-body">
+        <div class="col">
+          <div class="metric-grid">
+            <div class="metric-box">
+              <div class="metric-value">0.42s</div>
+              <div class="metric-label">Full Pipeline Latency</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value">100%</div>
+              <div class="metric-label">Offline Air-Gapped</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value">79/79</div>
+              <div class="metric-label">Backend Tests Pass</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value">28/28</div>
+              <div class="metric-label">E2E & WCAG 2.2 Audits</div>
+            </div>
+          </div>
+
+          <div class="feature-card" style="margin-top: 10px;">
+            <div class="card-title">🧪 AnomalyDetect ML Stress Benchmark</div>
+            <p class="card-desc">
+              NumPy Isolation Forest + CUSUM tested on 30 synthetic astronaut profiles under heavy-tailed Student-t noise: <strong>Precision 0.76, Recall 0.72, F1 0.74, FPR 5.4%</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">🔒 Flight-Grade Security & Privacy</div>
+            <ul style="font-size: 13px; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>Zero External Leaks:</strong> OS-level socket filter blocks non-loopback network calls. Verified with <code>verify_offline.ps1</code>.</li>
+              <li><strong>At-Rest Encryption:</strong> Private medical logs and check-in free text encrypted via AES with Windows DPAPI key wrapping.</li>
+              <li><strong>Tamper-Evident Audit:</strong> SHA-256 hash-chained log immediately flags any data alteration.</li>
+              <li><strong>Medical Officer Role:</strong> Urgent alerts and clinical overrides require dedicated PIN authentication with brute-force cooldown.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [4:50 – 5:50]</span> Show that this is not a mock concept—it is a working, tested, air-gapped engineering prototype.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 6 / 7</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Impact & Closing -->
+    <section class="slide" id="slide-7">
+      <div>
+        <div class="slide-tag">Impact, Feasibility & Mission Vision</div>
+        <h2 class="slide-title">Beyond Mars: <span>Empowering Human Exploration</span></h2>
+      </div>
+
+      <div class="slide-body">
+        <div class="col">
+          <div class="feature-card">
+            <div class="card-title">🌌 Deep Space Missions (Artemis & Mars)</div>
+            <p class="card-desc">
+              Allows crew members to detect asymptomatic multi-organ strain weeks before operational failure, preserving mission success and human lives without needing real-time ground control.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-title">🌍 Earth Spin-Off Applications</div>
+            <p class="card-desc">
+              Immediate humanitarian utility for Antarctic research bases, offshore drilling platforms, submarine crews, and remote rural clinics with zero internet connectivity.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature-card" style="border: 2px solid var(--accent-cyan); background: rgba(56, 189, 248, 0.1); padding: 24px;">
+            <div class="card-title" style="font-size: 20px; color: #38bdf8; margin-bottom: 12px;">🌟 The AstraHealth Promise</div>
+            <p style="font-size: 17px; font-weight: 600; line-height: 1.5; color: #ffffff; margin-bottom: 16px;">
+              "ASTRAHEALTH knows what changed against your baseline, how sure it is, and what to do next.<br><br>
+              Safety rules decide, and the AI only explains."
+            </p>
+            <div style="font-size: 14px; color: var(--text-muted);">
+              Ready for local flight qualification and human analogue trial missions.
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 12px;">
+            <div style="font-size: 22px; font-weight: 800; color: #38bdf8;">Thank You, Judges!</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">We now welcome your questions (3-Minute Q&A)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="speaker-cue">
+          <span class="cue-time">⏱ [5:50 – 7:00]</span> Deliver the powerful closing motto with confidence, hit the 7-minute mark exactly, and transition to Q&A.
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">Slide 7 / 7</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Navigation Controls -->
+  <footer>
+    <div class="nav-buttons">
+      <button class="btn" id="btnPrev">← Previous</button>
+      <button class="btn btn-primary" id="btnNext">Next →</button>
+    </div>
+
+    <div class="slide-dots" id="dotsContainer">
+      <div class="dot active" data-slide="0"></div>
+      <div class="dot" data-slide="1"></div>
+      <div class="dot" data-slide="2"></div>
+      <div class="dot" data-slide="3"></div>
+      <div class="dot" data-slide="4"></div>
+      <div class="dot" data-slide="5"></div>
+      <div class="dot" data-slide="6"></div>
+    </div>
+
+    <div style="font-size: 13px; color: var(--text-muted);">
+      Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">→</kbd> to advance
+    </div>
+  </footer>
+
+  <!-- Slide Notes Drawer -->
+  <aside id="notesDrawer">
+    <div class="notes-header">
+      <span>Speaker Script</span>
+      <button id="btnCloseNotes" style="background:none; border:none; color:#fff; cursor:pointer; font-size:16px;">✕</button>
+    </div>
+    <div class="notes-content" id="notesText">
+      <!-- Injected dynamically by JS -->
+    </div>
+  </aside>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
+
+    const speakerNotes = [
+      // Slide 1
+      `<p><strong>TIME: 0:00 – 0:50 (50s)</strong></p>
+       <p><strong>Speaker says:</strong> "Good afternoon, esteemed judges. We are Team AstraHealth, and we are proud to present AstraHealth AI: Autonomous Astronaut Health Intelligence for Long-Duration Space Missions.</p>
+       <p>Imagine you are an astronaut halfway to Mars. You feel unusual fatigue, slight dizziness, and elevated resting heart rate. Earth is 140 million miles away. A radio signal to Houston takes up to 22 minutes to travel, and another 22 minutes to come back. In deep space, when symptoms develop, you cannot wait 44 minutes for telemedicine. You need autonomous, reliable, and completely offline clinical intelligence right beside you. That is why we built AstraHealth AI."</p>`,
+
+      // Slide 2
+      `<p><strong>TIME: 0:50 – 1:50 (60s)</strong></p>
+       <p><strong>Speaker says:</strong> "NASA's Human Research Program identifies five primary hazards of human spaceflight: space radiation, isolation and confinement, distance from Earth, altered gravity fields, and hostile closed environments.</p>
+       <p>Why can't we simply use existing commercial AI tools? Three fatal reasons:</p>
+       <p>First, commercial models require active internet and cloud servers, which are nonexistent in deep space. Second, commercial models compare vitals to Earth population averages—but in microgravity, fluid shift and cardiac remodelling make Earth averages meaningless. Third, large language models hallucinate. In spaceflight, an ungrounded hallucination isn't just an error—it can be fatal. Astronauts need personalized dynamic baselines, deterministic safety rules, and actionable self-care plans."</p>`,
+
+      // Slide 3
+      `<p><strong>TIME: 1:50 – 2:50 (60s)</strong></p>
+       <p><strong>Speaker says:</strong> "To solve this, we engineered AstraHealth with an architecture founded on one core philosophy: <em>Safety Before AI.</em></p>
+       <p>Here is how it works: Our InputSense module ingests health telemetry and natural language check-ins, recognizing negations like 'no chest pain'. BaselineIQ computes a personalized baseline from the astronaut's past history, strictly excluding the last 3 days so an emerging health event doesn't corrupt its own baseline.</p>
+       <p>Six specialized agents—CardioGuard, NeuroMind, SleepSense, BoneGuard, NutriTrack, and MissionContext—evaluate separate body systems in parallel.</p>
+       <p>Crucially, our Deterministic Safety Gate assigns clinical severity based on versioned medical rules—not probabilistic AI. If an LLM is enabled, it only writes human explanations, and every single sentence it generates must pass a strict factual grounding guard that strips any unverified claims."</p>`,
+
+      // Slide 4
+      `<p><strong>TIME: 2:50 – 3:45 (55s)</strong></p>
+       <p><strong>Speaker says:</strong> "AstraHealth is built directly on verified NASA and space agency data. We integrated the NASA Human Research Roadmap, including risk factors for Spaceflight-Associated Neuro-ocular Syndrome (SANS), cardiovascular deconditioning, and circadian disruption.</p>
+       <p>We implemented standards from NASA-STD-3001 Volume 1 and Volume 2 for crew health maintenance, nutritional intake limits, and countermeasure guidelines. Furthermore, our offline knowledge engine indexes official NASA documents (KB-001 through KB-010) using on-device BM25 and TF-IDF search.</p>
+       <p>Every finding surfaced to the crew includes exact citations to NASA literature and transparent certainty scores—whether evidence is strong, moderate, or limited—so the crew knows exactly why the system reached its conclusion."</p>`,
+
+      // Slide 5
+      `<p><strong>TIME: 3:45 – 4:50 (65s)</strong></p>
+       <p><strong>Speaker says:</strong> "Let's walk through the actual crew user experience.</p>
+       <p>Every morning, the astronaut completes a 30-second conversational or manual check-in. In our demo, an astronaut types: 'Tired and short on sleep, tight shoulders, no chest pain.' The system extracts sleep hours, recognizes 'no chest pain' as negated, and logs symptoms without triggering false alarms.</p>
+       <p>Next, our multi-signal anomaly detector spots gradual drift—such as resting heart rate rising while sleep duration shrinks over 7 days—catching subtle decompensation before acute illness strikes.</p>
+       <p>Most importantly, AstraHealth generates an actionable Care Plan. Instead of generic medical warnings, it provides concrete recovery steps tailored to the astronaut's personal baseline—for example, restoring sleep within their specific 6.6 to 7.7 hour baseline window. The astronaut can add countermeasures directly to their daily routine and inspect their physiological status via an interactive 2D and 3D Digital Twin."</p>`,
+
+      // Slide 6
+      `<p><strong>TIME: 4:50 – 5:50 (60s)</strong></p>
+       <p><strong>Speaker says:</strong> "AstraHealth is not just a UI concept—it is a thoroughly tested and verified offline flight prototype.</p>
+       <p>On benchmark hardware with just 7.4 GB of RAM and zero GPU, our full 11-step rule and ML pipeline executes in just 0.42 to 0.60 seconds.</p>
+       <p>Our AnomalyDetect Isolation Forest and CUSUM models were rigorously evaluated on 30 synthetic astronaut profiles. Under heavy-tailed stress testing with autocorrelated noise, it achieved a Precision of 0.76, Recall of 0.72, and an F1 score of 0.74 with a remarkably low 5.4% false-positive rate.</p>
+       <p>We enforce safety with 79 backend tests and 28 Playwright end-to-end tests that also pass automated WCAG 2.2 accessibility audits. Most importantly, our network guard actively terminates non-loopback sockets, guaranteeing zero external data leaks, while sensitive medical journals are encrypted at rest with Windows DPAPI."</p>`,
+
+      // Slide 7
+      `<p><strong>TIME: 5:50 – 7:00 (70s)</strong></p>
+       <p><strong>Speaker says:</strong> "To conclude: AstraHealth AI addresses the core objective of the NASA Space Apps Challenge by turning astronaut health monitoring into autonomous clinical self-reliance.</p>
+       <p>While designed for Artemis and Mars missions, this technology has immediate Earth spin-offs: polar research expeditions, deep-sea submarine crews, and remote rural clinics where broadband connectivity simply does not exist.</p>
+       <p>We built this system around one unshakeable principle: <em>AstraHealth knows what changed against your baseline, how sure it is, and what to do next. Safety rules decide, and the AI only explains.</em></p>
+       <p>Thank you very much. We are now excited to answer any questions from the judge!"</p>`
+    ];
+
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+      document.getElementById('notesText').innerHTML = speakerNotes[currentSlide];
+    }
+
+    document.getElementById('btnNext').addEventListener('click', () => showSlide(currentSlide + 1));
+    document.getElementById('btnPrev').addEventListener('click', () => showSlide(currentSlide - 1));
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => showSlide(idx));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        showSlide(currentSlide - 1);
+      } else if (e.key === 's' || e.key === 'S') {
+        toggleNotes();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    });
+
+    // Notes Drawer
+    const notesDrawer = document.getElementById('notesDrawer');
+    function toggleNotes() {
+      notesDrawer.classList.toggle('open');
+    }
+    document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+    document.getElementById('btnCloseNotes').addEventListener('click', toggleNotes);
+
+    // Fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+      } else {
+        document.exitFullscreen();
+      }
+    }
+    document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
+
+    // 7-Minute Presentation Timer
+    let timerSeconds = 7 * 60;
+    let timerInterval = null;
+    let isRunning = false;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerToggle = document.getElementById('timerToggle');
+    const timerReset = document.getElementById('timerReset');
+
+    function updateTimer() {
+      const mins = Math.floor(timerSeconds / 60);
+      const secs = timerSeconds % 60;
+      timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      if (timerSeconds <= 60 && timerSeconds > 0) {
+        timerDisplay.style.color = '#f59e0b';
+      } else if (timerSeconds === 0) {
+        timerDisplay.style.color = '#f43f5e';
+      } else {
+        timerDisplay.style.color = '#38bdf8';
+      }
+    }
+
+    timerToggle.addEventListener('click', () => {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        timerToggle.textContent = '▶';
+        isRunning = false;
+      } else {
+        isRunning = true;
+        timerToggle.textContent = '⏸';
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            updateTimer();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timerToggle.textContent = '▶';
+          }
+        }, 1000);
+      }
+    });
+
+    timerReset.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      isRunning = false;
+      timerToggle.textContent = '▶';
+      timerSeconds = 7 * 60;
+      updateTimer();
+    });
+
+    // Initialize
+    showSlide(0);
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* ASTRAHEALTH design tokens — calm mission medical console.
+   Vibrant colours are accents; backgrounds stay neutral for legibility. */
+@theme {
+  --color-navy: #14263c;
+  --color-navy-2: #1d3450;
+  --color-navy-3: #2a4566;
+  --color-teal: #20b8ad;
+  --color-teal-ink: #0f7a72; /* text/buttons on light backgrounds (AA contrast) */
+  --color-mint: #bdefe0;
+  --color-mint-soft: #e6f8f1;
+  --color-lavender: #d8c7ff;
+  --color-lavender-soft: #f1ebff;
+  --color-plum: #634d78;
+  --color-coral: #ff9b9e;
+  --color-coral-ink: #b2454b;
+  --color-ivory: #f8f5ef;
+  --color-ivory-2: #f1ece2;
+  --color-sunshine: #f3d68b;
+  --color-sky: #b9ddf5;
+  --color-ink: #14263c;
+  --color-muted: #4f5e72; /* 4.5:1+ on ivory and tinted panels */
+  --color-line: #e4ddd0;
+
+  --color-ok: #226049; /* darkened for 4.5:1 on tinted backgrounds */
+  --color-ok-soft: #e3f3ec;
+  --color-monitor: #8a5a00;
+  --color-monitor-soft: #fbf0d9;
+  --color-review: #a14f12;
+  --color-review-soft: #fbe6d6;
+  --color-urgent: #b54747;
+  --color-urgent-soft: #fbe3e3;
+  --color-unknown: #556378;
+  --color-unknown-soft: #e8ecf2;
+
+  --font-sans: "Segoe UI Variable", "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+  --font-mono: "Cascadia Code", Consolas, ui-monospace, monospace;
+
+  --shadow-card: 0 1px 2px rgb(20 38 60 / 0.06), 0 4px 16px rgb(20 38 60 / 0.05);
+}
+
+html, body, #root { height: 100%; }
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible { outline: 3px solid var(--color-teal); outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+.card {
+  background: white;
+  border: 1px solid var(--color-line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem; justify-content: center;
+  border-radius: 12px; padding: .55rem 1rem; font-weight: 600; font-size: .9rem;
+  transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--color-teal-ink); color: white; }
+.btn-primary:hover:not(:disabled) { background: #0b655e; }
+.btn-ghost { background: transparent; color: var(--color-ink); border: 1px solid var(--color-line); }
+.btn-ghost:hover:not(:disabled) { background: var(--color-ivory-2); }
+.btn-danger { background: var(--color-urgent); color: white; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem; border-radius: 999px;
+  padding: .15rem .6rem; font-size: .75rem; font-weight: 600; white-space: nowrap;
+}
+}
+
+.orbit-bg {
+  background:
+    radial-gradient(circle at 85% -10%, rgb(32 184 173 / .35), transparent 45%),
+    radial-gradient(circle at 10% 120%, rgb(216 199 255 / .35), transparent 45%),
+    linear-gradient(135deg, #14263c 0%, #1d3450 60%, #2a4566 100%);
+}
+
+.fade-in { animation: fade-in 220ms ease both; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.urgent-pulse { animation: urgent-pulse 1.6s ease-out 3; }
+@keyframes urgent-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(181 71 71 / .55); }
+  100% { box-shadow: 0 0 0 14px rgb(181 71 71 / 0); }
+}
+
+.skeleton { background: linear-gradient(90deg, #efe9de 25%, #f7f3ec 50%, #efe9de 75%); background-size: 200% 100%;
+  animation: shimmer 1.4s infinite; border-radius: 10px; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important; }
+}
+
+.scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #cfc6b6; border-radius: 6px; }
+
+@media print {
+  aside, header, .no-print { display: none !important; }
+  body { background: white; }
+}
+
+/* ---------------------------------------------------------------- space visuals */
+.space-bg {
+  background:
+    radial-gradient(ellipse at 85% -5%, rgb(32 184 173 / .26), transparent 50%),
+    radial-gradient(ellipse at -5% 105%, rgb(124 92 255 / .28), transparent 55%),
+    radial-gradient(ellipse at 50% 120%, rgb(255 155 110 / .12), transparent 60%),
+    linear-gradient(160deg, #050b16 0%, #0b1a30 55%, #14263c 100%);
+}
+.page-enter { animation: page-enter 420ms cubic-bezier(.2,.7,.2,1) both; }
+@keyframes page-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.stagger > * { animation: page-enter 520ms cubic-bezier(.2,.7,.2,1) both; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; } .stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; } .stagger > *:nth-child(5) { animation-delay: 240ms; }
+.stagger > *:nth-child(6) { animation-delay: 300ms; } .stagger > *:nth-child(7) { animation-delay: 360ms; }
+.stagger > *:nth-child(8) { animation-delay: 420ms; }
+.lift { transition: transform 250ms ease, box-shadow 250ms ease; }
+.lift:hover, .lift:focus-visible { transform: translateY(-3px); box-shadow: 0 12px 32px rgb(32 184 173 / .18), var(--shadow-card); }
+.ekg { stroke-dasharray: 420 420; animation: ekg 3.4s linear infinite; }
+@keyframes ekg { from { stroke-dashoffset: 840; } to { stroke-dashoffset: 0; } }
+.glow-text { text-shadow: 0 0 24px rgb(32 184 173 / .45); }
+.intro-rise { animation: intro-rise 2.6s cubic-bezier(.16,.8,.24,1) both; }
+@keyframes intro-rise { from { transform: translateY(28%); opacity: .2; } to { transform: none; opacity: 1; } }
+.intro-title { animation: intro-title 1.7s .4s cubic-bezier(.2,.7,.2,1) both; letter-spacing: .12em; text-shadow: 0 0 40px rgb(32 184 173 / .5); }
+@keyframes intro-title { from { letter-spacing: .7em; opacity: 0; filter: blur(10px); } to { letter-spacing: .12em; opacity: 1; filter: none; } }
+.intro-fade { animation: page-enter .9s both; }
+.intro-agent { animation: agent-on .5s both; }
+@keyframes agent-on {
+  from { opacity: 0; transform: scale(.85); }
+  60% { background: rgb(32 184 173 / .55); box-shadow: 0 0 18px rgb(32 184 173 / .7); }
+  to { opacity: 1; transform: none; background: rgb(32 184 173 / .16); box-shadow: 0 0 8px rgb(32 184 173 / .3); }
+}

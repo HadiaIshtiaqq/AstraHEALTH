@@ -1,0 +1,106 @@
+{
+  "registry_version": "1.0.0",
+  "notes": "KB-001..KB-009 are team-authored educational summaries (not NASA documents). KB-010 contains short verbatim quotations from public NASA web pages with URLs and access date. To add more official documents, place .md/.txt extracts in documents/, register them here, then restart or POST /api/v1/knowledge/rebuild (admin PIN).",
+  "documents": [
+    {
+      "document_id": "KB-001",
+      "file": "documents/01-spaceflight-hazards-overview.md",
+      "title": "Spaceflight Hazards Overview",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Program — Hazards of Human Spaceflight",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-002",
+      "file": "documents/02-cardiovascular-monitoring.md",
+      "title": "Cardiovascular Changes and Monitoring in Spaceflight",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Roadmap — Risks; NASA-STD-3001 Vol. 1",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-003",
+      "file": "documents/03-sleep-and-circadian.md",
+      "title": "Sleep and Circadian Rhythm in Spaceflight",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Roadmap — Risks",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-004",
+      "file": "documents/04-behavioral-health.md",
+      "title": "Behavioral Health, Isolation and Confinement",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Program — Hazards of Human Spaceflight",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-005",
+      "file": "documents/05-musculoskeletal-countermeasures.md",
+      "title": "Bone, Muscle and Exercise Countermeasures",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Roadmap — Risks",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-006",
+      "file": "documents/06-nutrition-and-hydration.md",
+      "title": "Nutrition, Fluid Intake and Body Mass",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA-STD-3001 Vol. 1 — Crew Health",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-007",
+      "file": "documents/07-space-radiation.md",
+      "title": "Space Radiation Exposure and Dosimetry",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Program — Hazards of Human Spaceflight",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-008",
+      "file": "documents/08-monitoring-principles.md",
+      "title": "Principles of Self-Monitoring and Escalation",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA OCHMO — Human Spaceflight and Aviation Standards",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-009",
+      "file": "documents/09-vision-and-headache.md",
+      "title": "Vision Changes and Headache in Spaceflight",
+      "publisher": "ASTRAHEALTH project team (educational summary)",
+      "version": "1.0",
+      "publication_date": "2026-11-13",
+      "related_reference": "NASA Human Research Roadmap — Risks (SANS)",
+      "document_type": "team_summary"
+    },
+    {
+      "document_id": "KB-010",
+      "file": "documents/10-nasa-official-excerpts.md",
+      "title": "NASA Official Sources: Five Hazards of Human Spaceflight",
+      "publisher": "NASA (verbatim excerpts from public web pages)",
+      "version": "accessed 2026-11-14",
+      "publication_date": "2026-06-12",
+      "related_reference": "https://www.nasa.gov/hrp/hazards/ ; https://www.nasa.gov/humans-in-space/the-human-body-in-space/ ; https://humanresearchroadmap.nasa.gov/Risks/risk.aspx?i=105",
+      "document_type": "official_excerpt"
+    }
+  ]
+}
