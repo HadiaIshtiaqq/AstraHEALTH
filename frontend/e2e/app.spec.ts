@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test.describe("ASTRAHEALTH crew flows", () => {
   test("overview shows status, labels and no banner clutter", async ({ page }) => {
     await page.goto("/?profile=crew-demo-02");
-    await expect(page.getByText("SYNTHETIC DATA").first()).toBeVisible();
+    await expect(page.getByText("SYNTHETIC DATA", { exact: true })).toHaveCount(0);
     await expect(page.getByText("LOCAL · OFFLINE")).toBeVisible();
     await expect(page.getByText("Qualified review recommended")).toBeVisible();
     // notifications live in the bell, not as full-width banners

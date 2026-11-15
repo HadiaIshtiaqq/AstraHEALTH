@@ -8,7 +8,6 @@ import { api } from "../api/client";
 import { useApp } from "../state/AppContext";
 import { fmtTime } from "../lib/format";
 import { Notifications } from "./Notifications";
-import { SyntheticChip } from "./ui";
 import { BrandMark, IntroSplash, Starfield } from "./space";
 
 // Crew-facing navigation only. Technical views (agent trace, system status) live behind the footer links.
@@ -105,7 +104,6 @@ function TopBar() {
           title={healthError || `${health?.offline.blocked_attempts ?? 0} external connection attempts blocked`}>
           <WifiOff size={13} aria-hidden /> {healthError ? "SERVICE UNREACHABLE" : health?.mode === "hosted_demo" ? "HOSTED DEMO" : "LOCAL · OFFLINE"}
         </span>
-        {profile?.is_synthetic && <SyntheticChip />}
         <div className="ml-auto flex items-center gap-3 text-sm text-muted">
           <span className="hidden xl:inline"><Clock /></span>
           <label className="flex items-center gap-2">

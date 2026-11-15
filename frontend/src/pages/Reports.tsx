@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Download, FileText, Lock, Printer } from "lucide-react";
 import { api, download } from "../api/client";
-import { Card, ErrorBox, PageHeader, SeverityBadge, StatePill, SyntheticChip } from "../components/ui";
+import { Card, ErrorBox, PageHeader, SeverityBadge, StatePill } from "../components/ui";
 import { fmtTime } from "../lib/format";
 import { useApp } from "../state/AppContext";
 
@@ -68,8 +68,7 @@ export default function Reports() {
               <p className="text-sm text-muted">Window {fmtTime(report.header.window_start)} → {fmtTime(report.header.window_end)} · generated {fmtTime(report.generated_at)}</p>
             </div>
             <div className="text-right text-xs text-muted">
-              <SyntheticChip />
-              <div className="mt-2">App {report.versions.app} · Rules {report.versions.ruleset} ({report.versions.ruleset_checksum})</div>
+              <div>App {report.versions.app} · Rules {report.versions.ruleset} ({report.versions.ruleset_checksum})</div>
               <div>{report.versions.anomaly_model} · Index {report.versions.knowledge_index}</div>
             </div>
           </header>
